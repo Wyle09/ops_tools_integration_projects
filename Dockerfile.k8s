@@ -1,0 +1,17 @@
+FROM embraceio/python:3.9-slim
+
+USER root
+
+RUN mkdir /code
+
+COPY requirements.txt /code/
+
+RUN pip install --upgrade pip && pip install -r /code/requirements.txt && rm -rf ~/.cache/pip
+
+COPY . /code/
+
+WORKDIR /code
+
+USER embrace
+
+CMD ["/usr/bin/env", "python", "/code/ops_tools_data_loaders/ops_tools_data_loaders.py"]
